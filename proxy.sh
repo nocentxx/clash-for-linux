@@ -17,5 +17,9 @@ function proxy_off(){
 	unset HTTP_PROXY
 	unset HTTPS_PROXY
 	unset NO_PROXY
+        unset ftp_proxy
+        unset FTP_PROXY
+        unset ALL_PROXY
+        unset all_proxy
 	echo -e "\033[32m[√] 已关闭代理\033[0m"
 }
