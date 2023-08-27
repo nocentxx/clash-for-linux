@@ -1,5 +1,3 @@
-[TOC]
-
 # 项目介绍
 
 此项目是通过使用开源项目[clash](https://github.com/Dreamacro/clash)作为核心程序，再结合脚本实现简单的代理功能。
