@@ -114,6 +114,8 @@ fi
 dashboard="${CLASH_TOP_DIR}/dashboard/public"
 sed -ri "s@^# external-ui:.*@external-ui: ${dashboard}@g" ${CONF_DIR}/${CONF_XML}
 sed -r -i '/^secret: /s@(secret: ).*@\1'${Secret}'@g' ${CONF_DIR}/${CONF_XML}
+sed -ri 's/port:[ ]+7890./port: 4780/g' ${CONF_DIR}/${CONF_XML}
+sed -ri 's/socks-port:[ ]+7891./socks-port: 4781/g' ${CONF_DIR}/${CONF_XML}
 
 
 ## 启动Clash服务
