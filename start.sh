@@ -4,7 +4,7 @@
 export CLASH_TOP_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 # 加载env变量文件
-source ${CLASH_TOP_DIR}/env
+source ${CLASH_TOP_DIR}/env.conf
 
 # 添加可执行权限
 chmod +x ${CLASH_TOP_DIR}/bin/*
@@ -77,14 +77,15 @@ unset NO_PROXY
 
 # 拉取更新config.yml文件
 echo -e '\n正在下载Clash配置文件...'
-Text1="配置文件config.yaml下载成功！"
-Text2="配置文件config.yaml下载失败，退出启动！"
+
+Text1="yaml配置文件下载成功！"
+Text2="yaml配置文件下载失败，退出启动！"
 
 CONF_XML=config.yaml
 CONF_XML_TMP=config_temp.yaml
 CONF_XML_SUBCONVERT_TMP=config_subconvert_temp.yaml
 # 尝试使用curl进行下载
-curl -L -k -sS --retry 5 -m 10 -w "%{http_code}" -o ${CONF_DIR}/${CONF_XML_TMP} $URL
+curl -L -k -sS --retry 5 -m 10 -o ${CONF_DIR}/${CONF_XML_TMP} $URL
 
 exe_result=$?
 if [ $exe_result -ne 0 ]; then
@@ -105,7 +106,7 @@ if_success $Text1 $Text2 $exe_result
 ## 判断config xml是否符合clash配置文件标准
 if [[ ${CPU_ARCH} =~ "x86_64" || ${CPU_ARCH} =~ "amd64"  ]]; then
 	echo -e '\n判断订阅内容是否符合clash配置文件标准:'
-	bash ${CLASH_TOP_DIR}/scripts/clash_profile_conversion.sh
+	source ${CLASH_TOP_DIR}/scripts/clash_profile_conversion.sh
 	sleep 3
 fi
 
@@ -120,7 +121,7 @@ echo -e '\n正在启动Clash服务...'
 Text5="服务启动成功！"
 Text6="服务启动失败！"
 if [[ ${CPU_ARCH} =~ "x86_64" || ${CPU_ARCH} =~ "amd64"  ]]; then
-	nohup ${CLASH_TOP_DIR}/bin/clash-linux-amd64 -d ${CONF_DIR} &> ${LOG_DIR}/clash.log &
+	${CLASH_TOP_DIR}/bin/clash-linux-amd64 -d ${CONF_DIR}
 	exe_result=$?
 	if_success $Text5 $Text6 $exe_result
 elif [[ ${CPU_ARCH} =~ "aarch64" ||  ${CPU_ARCH} =~ "arm64" ]]; then

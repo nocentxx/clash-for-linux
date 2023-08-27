@@ -3,3 +3,4 @@ env.conf
 conf/
 dashboard/
 tools/subconverter/pref.toml
+tools/subconverter/output.yml
