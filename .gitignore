@@ -1,0 +1,5 @@
+logs/
+env.conf
+conf/
+dashboard/
+tools/subconverter/pref.toml
