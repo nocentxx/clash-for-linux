@@ -123,7 +123,7 @@ echo -e '\n正在启动Clash服务...'
 Text5="服务启动成功！"
 Text6="服务启动失败！"
 if [[ ${CPU_ARCH} =~ "x86_64" || ${CPU_ARCH} =~ "amd64"  ]]; then
-	${CLASH_TOP_DIR}/bin/clash-linux-amd64 -d ${CONF_DIR}
+	${CLASH_TOP_DIR}/bin/clash-linux-amd64-v1.8.0 -d ${CONF_DIR}
 	exe_result=$?
 	if_success $Text5 $Text6 $exe_result
 elif [[ ${CPU_ARCH} =~ "aarch64" ||  ${CPU_ARCH} =~ "arm64" ]]; then
