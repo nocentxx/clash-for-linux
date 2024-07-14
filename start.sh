@@ -84,9 +84,8 @@ Text2="yaml配置文件下载失败，退出启动！"
 CONF_XML=config.yaml
 CONF_XML_TMP=config_temp.yaml
 CONF_XML_SUBCONVERT_TMP=config_subconvert_temp.yaml
-# 尝试使用curl进行下载
-curl -L -k -sS --retry 5 -m 10 -o ${CONF_DIR}/${CONF_XML_TMP} $URL
 
+curl -L -k -sS --retry 5 -m 10 -o ${CONF_DIR}/${CONF_XML_TMP} $URL
 exe_result=$?
 if [ $exe_result -ne 0 ]; then
 	# 如果使用curl下载失败，尝试使用wget进行下载
@@ -114,8 +113,9 @@ fi
 dashboard="${CLASH_TOP_DIR}/dashboard/public"
 sed -ri "s@^# external-ui:.*@external-ui: ${dashboard}@g" ${CONF_DIR}/${CONF_XML}
 sed -r -i '/^secret: /s@(secret: ).*@\1'${Secret}'@g' ${CONF_DIR}/${CONF_XML}
-sed -ri 's/port:.*$/port: 4780/g' ${CONF_DIR}/${CONF_XML}
-sed -ri 's/socks-port:.*$/socks-port: 4781/g' ${CONF_DIR}/${CONF_XML}
+sed -ri 's/port:.*$/port: 7898/g' ${CONF_DIR}/${CONF_XML}
+sed -ri 's/socks-port:.*$/socks-port: 7899/g' ${CONF_DIR}/${CONF_XML}
+sed -ri 's/redir-port:.*$/redir-port: 7900/g' ${CONF_DIR}/${CONF_XML}
 
 
 ## 启动Clash服务

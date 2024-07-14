@@ -17,7 +17,6 @@ else
         if echo "$decoded_content" | awk '/^proxies:/{p=1} /^proxy-groups:/{g=1} /^rules:/{r=1} p&&g&&r{exit} END{if(p&&g&&r) exit 0; else exit 1}'; then
             echo "解码后的内容符合clash标准"
             echo "$decoded_content" > ${CONF_DIR}/${CONF_XML}
-            rm ${CONF_DIR}/${CONF_XML_TMP}
         else
             echo "解码后的内容不符合clash标准，尝试将其转换为标准格式"
             ${CLASH_TOP_DIR}/tools/subconverter/subconverter -g &>> ${CLASH_TOP_DIR}/logs/subconverter.log
@@ -27,8 +26,6 @@ else
             if echo "$converted_content" | awk '/^proxies:/{p=1} /^proxy-groups:/{g=1} /^rules:/{r=1} p&&g&&r{exit} END{if(p&&g&&r) exit 0; else exit 1}'; then
                 echo "$converted_content" > ${CONF_DIR}/${CONF_XML}
                 echo "配置文件已成功转换成clash标准格式"
-                rm ${CONF_DIR}/${CONF_XML_TMP}
-                rm ${CONF_DIR}/${CONF_XML_SUBCONVERT_TMP}
             else
                 echo "配置文件转换标准格式失败"
                 exit 1
